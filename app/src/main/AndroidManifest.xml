@@ -15,11 +15,9 @@
         android:theme="@style/Theme.NewsFinder" >
         <activity
             android:name=".presentation.menu.MenuActivity"
-            android:exported="false"
-            android:label="@string/title_activity_menu" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/splashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -21,15 +21,13 @@ import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.databinding.ActivityMenuBinding
 import com.pyroblinchik.newsfinder.presentation.base.ViewModelFactory
 import com.pyroblinchik.newsfinder.presentation.menu.view.NewsAdapter
-import com.pyroblinchik.newsfinder.util.view.IProgressView
-import com.pyroblinchik.newsfinder.util.view.ISetToolbar
-import com.pyroblinchik.newsfinder.util.view.hideSoftKeyboard
-import com.pyroblinchik.newsfinder.util.view.toggleVisibility
+import com.pyroblinchik.newsfinder.util.view.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class MenuActivity : AppCompatActivity() {
+class MenuActivity : AppCompatActivity(), ISetToolbar {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -44,9 +42,9 @@ class MenuActivity : AppCompatActivity() {
 //        binding.progressView
 //    }
 //
-//    private val toolbar by lazy {
-//        binding.includeToolbar
-//    }
+    private val toolbar by lazy {
+        binding.includeToolbar
+    }
 
     private val navigation by lazy {
         binding.navView
@@ -59,6 +57,8 @@ class MenuActivity : AppCompatActivity() {
         component.inject(this)
 
         binding = ActivityMenuBinding.inflate(layoutInflater)
+
+        setTheme(R.style.Theme_NewsFinder)
         setContentView(binding.root)
 
         viewModel =
@@ -69,17 +69,18 @@ class MenuActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navigation.setupWithNavController(navController)
 
-//        setToolbar()
+        setToolbar()
 
         initUI()
     }
 
-//    override fun setToolbar() {
-//        setSupportActionBar(toolbar.mainToolbar)
-//        supportActionBar!!.title = ""
-//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//        setToolbarColor(this, toolbar.mainToolbar)
-//    }
+    override fun setToolbar() {
+        setSupportActionBar(toolbar.mainToolbar)
+        supportActionBar!!.title = ""
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+        binding.includeToolbar.titleToolbar.gone()
+        binding.includeToolbar.mainToolbar.setLogo(R.drawable.ic_logo_horizontal)
+    }
 
 //    private fun setToolbarTitle() {
 //        binding.includeToolbar.titleToolbar.text =

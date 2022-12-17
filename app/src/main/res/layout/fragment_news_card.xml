@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.menu.fragments.FeedFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cardCl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_news_item_rectangle">
+
+                <TextView
+                    android:id="@+id/headerTextView"
+                    style="@style/darkGreen20UbuntuBold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:paddingTop="5dp"
+                    android:text="@string/loading_with_dots"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/gray12UbuntuMedium"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="21dp"
+                    android:maxLines="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headerTextView"
+                    android:text="@string/loading_with_dots" />
+
+                <TextView
+                    android:id="@+id/categoryTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="@style/green12UbuntuMedium"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:maxLines="1"
+                    app:layout_constraintStart_toEndOf="@+id/dateTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headerTextView"
+                    android:text="@string/loading_with_dots" />
+
+                <ImageView
+                    android:id="@+id/imageViewContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintTop_toBottomOf="@+id/dateTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <TextView
+                    android:id="@+id/contentTextView"
+                    style="@style/black14RobotoRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="25dp"
+                    android:text="@string/loading_with_dots"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageViewContainer"
+                    tools:layout_editor_absoluteY="251dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/sourceTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/gray14UbuntuMedium"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="21dp"
+                android:maxLines="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardCl"
+                android:text="@string/source" />
+
+            <ImageView
+                android:id="@+id/sourceImageViewContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@+id/sourceTextView"
+
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/sourceNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/black14UbuntuMedium"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="21dp"
+                android:maxLines="1"
+                app:layout_constraintStart_toEndOf="@id/sourceImageViewContainer"
+                app:layout_constraintTop_toBottomOf="@+id/sourceTextView"
+                android:text="@string/loading_with_dots" />
+
+            <TextView
+                android:id="@+id/authorTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/gray14UbuntuMedium"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="21dp"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/authorNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/cardCl"
+                android:text="@string/author" />
+
+            <TextView
+                android:id="@+id/authorNameTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/black14UbuntuMedium"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="21dp"
+                android:maxLines="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sourceTextView"
+                android:text="@string/loading_with_dots" />
+
+            <ImageView
+                android:id="@+id/shareImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="22dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@+id/authorNameTextView"
+                android:src="@drawable/ic_share"
+                app:layout_constraintEnd_toStartOf="@+id/addToBookmarkImageView"/>
+
+            <ImageView
+                android:id="@+id/addToBookmarkImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@+id/authorNameTextView"
+                android:src="@drawable/ic_bookmark_empty"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
