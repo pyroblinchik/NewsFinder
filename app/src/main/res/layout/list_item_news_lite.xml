@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:text="Пiдпапка" />
+        tools:text="папка" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
