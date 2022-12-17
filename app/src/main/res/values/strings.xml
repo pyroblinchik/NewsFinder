@@ -1,8 +1,22 @@
 <resources>
     <string name="app_name">NewsFinder</string>
     <string name="title_activity_menu">MenuActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_feed">feed</string>
+    <string name="title_history">history</string>
+    <string name="title_profile">profile</string>
     <string name="main_toolbar">Toolbar</string>
+    <string name="filter">Filter</string>
+    <string name="loading_with_dots">Loading…</string>
+    <string name="source">source</string>
+    <string name="author">author</string>
+    <string name="sort_by">sort by</string>
+
+    <string name="categories">categories</string>
+    <string name="sources">sources</string>
+    <string name="countries">countries</string>
+    <string name="languages">languages</string>
+
+    <string name="nothing_found">nothing found</string>
+    <string name="changing_query_message">try changing the query</string>
+
 </resources>
