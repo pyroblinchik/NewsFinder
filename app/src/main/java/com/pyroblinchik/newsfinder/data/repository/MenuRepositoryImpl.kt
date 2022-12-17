@@ -1,7 +1,6 @@
 package com.pyroblinchik.newsfinder.data.repository
 
 import android.app.Application
-import com.pyroblinchik.newsfinder.data.Constants.clientApiAccessKey
 import com.pyroblinchik.newsfinder.data.mapper.NewsMapper
 import com.pyroblinchik.newsfinder.data.network.factory.NewsApiFactory
 import com.pyroblinchik.newsfinder.domain.base.model.News

@@ -3,7 +3,7 @@
     android:id="@+id/main_Toolbar"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/actionBarSize"
-    android:background="?attr/colorPrimaryDark"
+    android:background="@color/light_gray"
     android:gravity="center_vertical">
 
 

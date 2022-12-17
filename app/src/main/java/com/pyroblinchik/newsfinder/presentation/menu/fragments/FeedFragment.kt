@@ -18,7 +18,7 @@ import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 import com.pyroblinchik.newsfinder.presentation.menu.view.NewsAdapter
 import com.pyroblinchik.newsfinder.util.view.toggleVisibility
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+class FeedFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
     override fun constructViewBinding(): ViewBinding =

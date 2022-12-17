@@ -1,12 +1,11 @@
 package com.pyroblinchik.newsfinder.di.base
 
 import android.app.Application
-import com.pyroblinchik.newsfinder.MainActivity
 import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.di.DataModule
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivity
 import com.pyroblinchik.newsfinder.presentation.menu.fragments.HistoryFragment
-import com.pyroblinchik.newsfinder.presentation.menu.fragments.HomeFragment
+import com.pyroblinchik.newsfinder.presentation.menu.fragments.FeedFragment
 import com.pyroblinchik.newsfinder.presentation.menu.fragments.ProfileFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -20,9 +19,8 @@ import dagger.Component
 )
 interface ApplicationComponent {
 
-    fun inject(activity: MainActivity)
 
-    fun inject(fragment: HomeFragment)
+    fun inject(fragment: FeedFragment)
 
     fun inject(activity: MenuActivity)
 
