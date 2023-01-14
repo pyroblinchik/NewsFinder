@@ -1,4 +1,4 @@
-package com.pyroblinchik.newsfinder.presentation.language
+package com.pyroblinchik.newsfinder.presentation.languages
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

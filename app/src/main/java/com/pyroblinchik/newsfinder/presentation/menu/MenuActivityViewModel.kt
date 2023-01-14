@@ -3,22 +3,16 @@ package com.pyroblinchik.newsfinder.presentation.menu
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.pyroblinchik.newsfinder.domain.base.model.News
-import com.pyroblinchik.newsfinder.domain.menu.GetNewsFeedUseCase
-import com.pyroblinchik.newsfinder.util.ExceptionParser
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import com.pyroblinchik.newsfinder.domain.menu.GetNewsFeedFromNetworkUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 class MenuActivityViewModel @Inject constructor(
-    private val getNewsUseCase: GetNewsFeedUseCase,
+    private val getNewsUseCase: GetNewsFeedFromNetworkUseCase,
 ) : ViewModel() {
 
     private val _news = MutableLiveData<ArrayList<News>>()

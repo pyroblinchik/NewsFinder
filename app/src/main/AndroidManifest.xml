@@ -16,7 +16,7 @@
             android:name=".presentation.newsCard.NewsCardActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.language.LanguageActivity"
+            android:name=".presentation.languages.LanguageActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.favourites.FavouritesActivity"

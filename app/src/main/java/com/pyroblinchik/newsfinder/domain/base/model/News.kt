@@ -4,7 +4,7 @@ package com.pyroblinchik.newsfinder.domain.base.model
 class News{
     constructor()
     constructor(
-        id: Int?,
+        id: Int,
         author: String?,
         title: String?,
         description: String?,
@@ -14,7 +14,10 @@ class News{
         category: String?,
         language: String?,
         country: String?,
-        published_at: String?
+        published_at: String?,
+        isFavorite: Boolean,
+        isInHistory: Boolean,
+        historyGroupId: Int
     ) {
         this.id = id
         this.author = author
@@ -27,10 +30,13 @@ class News{
         this.language = language
         this.country = country
         this.published_at = published_at
+        this.isFavorite = isFavorite
+        this.isInHistory = isInHistory
+        this.historyGroupId = historyGroupId
     }
 
 
-    var id: Int? = null
+    var id: Int = 0
     var author : String? = null
     var title: String? = null
     var description: String? = null
@@ -42,8 +48,14 @@ class News{
     var country : String? = null
     var published_at: String? = null
 
+    /// Local
+
+    var isFavorite: Boolean = false
+    var isInHistory: Boolean = false
+    var historyGroupId : Int = 0
+
     override fun toString(): String {
-        return "News(id=$id, author=$author, title=$title, description=$description, url=$url, source=$source, image=$image, category=$category, language=$language, country=$country, published_at=$published_at)"
+        return "News(id=$id, author=$author, title=$title, description=$description, url=$url, source=$source, image=$image, category=$category, language=$language, country=$country, published_at=$published_at, isFavorite=$isFavorite, historyGroupId=$historyGroupId)"
     }
 
 }
