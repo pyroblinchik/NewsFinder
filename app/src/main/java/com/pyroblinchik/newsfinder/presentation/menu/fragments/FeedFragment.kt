@@ -11,18 +11,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
-import com.pyroblinchik.newsfinder.databinding.FragmentHomeBinding
+import com.pyroblinchik.newsfinder.databinding.FragmentFeedBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 import com.pyroblinchik.newsfinder.presentation.menu.view.NewsAdapter
 import com.pyroblinchik.newsfinder.util.view.toggleVisibility
 
-class FeedFragment : BaseFragment<FragmentHomeBinding>() {
+class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
     override fun constructViewBinding(): ViewBinding =
-        FragmentHomeBinding.inflate(layoutInflater)
+        FragmentFeedBinding.inflate(layoutInflater)
 
     lateinit var newsAdapter: NewsAdapter
 
@@ -32,7 +32,7 @@ class FeedFragment : BaseFragment<FragmentHomeBinding>() {
 
     fun addObservers() {
         viewModel.news.observe(this) { list ->
-            getViewBinding().listViewNews.toggleVisibility(list.isNotEmpty())
+            getViewBinding().newsListView.toggleVisibility(list.isNotEmpty())
 //            checkEmptyState(list)
             newsAdapter.submitList(list)
         }
@@ -56,6 +56,6 @@ class FeedFragment : BaseFragment<FragmentHomeBinding>() {
         newsAdapter = NewsAdapter(
             onItemClickListener
         )
-        getViewBinding().listViewNews.adapter = newsAdapter
+        getViewBinding().newsListView.adapter = newsAdapter
     }
 }

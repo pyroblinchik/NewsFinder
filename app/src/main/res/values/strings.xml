@@ -16,6 +16,13 @@
     <string name="countries">countries</string>
     <string name="languages">languages</string>
 
+    <string name="favourites">favourites</string>
+    <string name="language">language</string>
+    <string name="theme">theme</string>
+    <string name="light">light</string>
+    <string name="dark">dark</string>
+    <string name="system_theme">system theme</string>
+
     <string name="nothing_found">nothing found</string>
     <string name="changing_query_message">try changing the query</string>
 
