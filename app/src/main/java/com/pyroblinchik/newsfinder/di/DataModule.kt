@@ -18,7 +18,7 @@ import dagger.Provides
 
 @Module
 interface DataModule {
-
+    // jetpack compose is simply better than xml, u just gotta admit it
     @Binds
     @ApplicationScope
     fun bindMenuRepository(impl: MenuRepositoryImpl): MenuRepository
