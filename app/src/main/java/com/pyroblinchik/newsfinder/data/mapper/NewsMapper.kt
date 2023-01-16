@@ -43,6 +43,7 @@ class NewsMapper @Inject constructor() {
         news.historyGroupId
     )
 
+
     fun mapNewsDtoModelToEntity(response: NewsResponceDto): ArrayList<News> {
         val result = ArrayList<News>()
         var fakeID = 0
