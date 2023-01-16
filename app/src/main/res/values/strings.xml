@@ -24,6 +24,9 @@
     <string name="system_theme">system theme</string>
 
     <string name="nothing_found">nothing found</string>
-    <string name="changing_query_message">try changing the query</string>
+    <string name="changing_query_message">try changing the query or filter</string>
+
+    <string name="nothing_here_yet">nothing here yet</string>
+    <string name="read_some_news_message">try to go to the feed and read a couple of news. They will appear here</string>
 
 </resources>

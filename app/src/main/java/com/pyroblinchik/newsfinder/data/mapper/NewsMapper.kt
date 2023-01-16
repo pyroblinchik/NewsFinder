@@ -23,7 +23,8 @@ class NewsMapper @Inject constructor() {
         dbModel.published_at,
         dbModel.isFavorite,
         dbModel.isInHistory,
-        dbModel.historyGroupId
+        dbModel.historyGroupId,
+        dbModel.historyDate
     )
 
     fun mapEntityToDBModel(news: News) = NewsDBModel(
@@ -40,7 +41,8 @@ class NewsMapper @Inject constructor() {
         news.published_at,
         news.isFavorite,
         news.isInHistory,
-        news.historyGroupId
+        news.historyGroupId,
+        news.historyDate
     )
 
     fun mapNewsDtoModelToEntity(response: NewsResponceDto): ArrayList<News> {

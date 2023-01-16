@@ -13,7 +13,7 @@ import com.pyroblinchik.newsfinder.data.database.model.*
         NewsDBModel::class,
         LanguageDBModel::class
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(OfflineConverter::class)
 abstract class AppDatabase : RoomDatabase() {

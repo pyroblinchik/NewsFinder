@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import androidx.viewbinding.ViewBinding
+import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.databinding.FragmentFeedBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
@@ -33,7 +34,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     fun addObservers() {
         viewModel.news.observe(this) { list ->
             getViewBinding().newsListView.toggleVisibility(list.isNotEmpty())
-//            checkEmptyState(list)
+            checkEmptyState(list)
             newsAdapter.submitList(list)
         }
     }
@@ -45,7 +46,21 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun setupClickListeners() {
+        // TODO "M" remove getViewBinding
+    }
 
+
+    private fun checkEmptyState(list: ArrayList<News>?) {
+        getViewBinding().emptyStateFeed.headerTextView.text =
+            this.getString(R.string.nothing_found)
+        getViewBinding().emptyStateFeed.contentTextView.text =
+            this.getString(R.string.changing_query_message)
+        getViewBinding().emptyStateFeed.root.toggleVisibility(list.isNullOrEmpty())
+    }
+
+    override fun onResume() {
+        viewModel.updateActiveTab(0)
+        super.onResume()
     }
 
     private fun setNews() {
