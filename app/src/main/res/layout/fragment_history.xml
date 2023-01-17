@@ -7,7 +7,7 @@
     tools:context=".presentation.menu.fragments.HistoryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_view_news"
+        android:id="@+id/list_view_history_news"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingTop="12dp"

@@ -22,7 +22,6 @@ class NewsApiFactory {
                     .method(original.method, original.body)
 //                    .addHeader("Content-Type","application/json")
                     .build()
-            Log.d("Клиент", request.toString())
             chain.proceed(request)
         })
     private val client = httpClient.build()

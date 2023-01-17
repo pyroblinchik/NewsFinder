@@ -21,5 +21,6 @@ data class NewsDBModel(
     var published_at: String?,
     var isFavorite: Boolean,
     var isInHistory: Boolean,
-    var historyGroupId : Int
+    var historyGroupId : Int,
+    var historyDate: String?
 )

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
-class MenuActivity : AppCompatActivity(), ISetToolbar {
+class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -38,10 +39,10 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
 
     private lateinit var binding: ActivityMenuBinding
 
-//    private val progressView: ProgressBar by lazy {
-//        binding.progressView
-//    }
-//
+    private val progressView: ProgressBar by lazy {
+        binding.progressView
+    }
+
     private val toolbar by lazy {
         binding.includeToolbar
     }
@@ -49,8 +50,6 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
     private val navigation by lazy {
         binding.navView
     }
-
-    lateinit var adapter: NewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,17 +63,11 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
         viewModel =
             ViewModelProvider(this, viewModelFactory)[MenuActivityViewModel::class.java]
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_menu) as NavHostFragment
-        val navController = navHostFragment.navController
-        navigation.setupWithNavController(navController)
-
-        setToolbar()
-
         initUI()
     }
 
     override fun setToolbar() {
+        // TODO "M" Add toolbar and search
         setSupportActionBar(toolbar.mainToolbar)
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
@@ -88,12 +81,33 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
 //    }
 
     private fun initUI() {
+        setToolbar()
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_menu) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        navigation.setupWithNavController(navController)
+
+        // TODO "M" Change tabBar
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            changeToolbar(destination.displayName)
+            viewModel.updateSearchState(false)
+        }
 
         addObservers()
         addClickListeners()
     }
 
     fun addObservers() {
+        viewModel.activeTab.observe(this) {
+            invalidateOptionsMenu()
+        }
+
+        viewModel.searchState.observe(this) {
+            invalidateToolbar()
+            invalidateOptionsMenu()
+        }
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -102,17 +116,17 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
                         is MenuUIState.Error -> {
                             Timber.e("error")
 //                            checkStateForTimeout(state.message)
-//                            hideLoading()
+                            hideLoading()
                         }
                         is MenuUIState.Loading -> {
                             Timber.e("loading")
-//                            showLoading()
+                            showLoading()
                         }
                         is MenuUIState.Finish -> {
                             finish()
                         }
                         else -> {
-//                            hideLoading()
+                            hideLoading()
                         }
                     }
                 }
@@ -124,6 +138,48 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
 
     }
 
+    private fun changeToolbar(nameOfBlock: String) {
+        Timber.d(nameOfBlock)
+        binding.includeToolbar.titleToolbar.text = ""
+        when {
+            nameOfBlock.contains("feed") -> {
+                supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+//                binding.includeToolbar.titleToolbar.text = getString(R.string.title_feed)
+            }
+            nameOfBlock.contains("history") -> {
+                supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+//                binding.includeToolbar.titleToolbar.text = getString(R.string.title_history)
+            }
+            nameOfBlock.contains("profile") -> {
+                supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+//                binding.includeToolbar.titleToolbar.text = getString(R.string.title_profile)
+            }
+            else -> {
+                supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+                binding.includeToolbar.titleToolbar.text = ""
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        if (viewModel.searchState.value == true) {
+//            menuInflater.inflate(R.menu.empty_menu, menu)
+//            return super.onCreateOptionsMenu(menu)
+//        }
+        when (viewModel.activeTab.value) {
+            0 -> {
+                menuInflater.inflate(R.menu.menu_filter, menu)
+            }
+            1 -> {
+                menuInflater.inflate(R.menu.empty_menu, menu)
+            }
+            2 -> {
+                menuInflater.inflate(R.menu.empty_menu, menu)
+            }
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onPause() {
         hideSoftKeyboard(this)
         super.onPause()
@@ -133,10 +189,6 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
         backPressed()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.empty_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -151,16 +203,22 @@ class MenuActivity : AppCompatActivity(), ISetToolbar {
         finish()
     }
 
-//    override fun showLoading() {
-//        progressView.visible()
-//    }
-//
-//    override fun hideLoading() {
-//        progressView.gone()
-//    }
+    private fun invalidateToolbar() {
+//        toolbar.searchContainer.toggleVisibility(viewModel.searchState.value!!)
+        toolbar.titleToolbar.toggleVisibility(!viewModel.searchState.value!!)
+    }
+
+    override fun showLoading() {
+        progressView.visible()
+    }
+
+    override fun hideLoading() {
+        progressView.gone()
+    }
 
     companion object {
         private const val MODE_UNKNOWN = 0
+
         var requestCode = MODE_UNKNOWN
 
 

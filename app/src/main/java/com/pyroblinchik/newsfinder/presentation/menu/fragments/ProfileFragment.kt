@@ -6,31 +6,56 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewbinding.ViewBinding
 import com.pyroblinchik.newsfinder.databinding.FragmentProfileBinding
+import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
+import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
-    private var _binding: FragmentProfileBinding? = null
+    // TODO "I" code ProfileFragment
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    private val viewModel by activityViewModels<MenuActivityViewModel>()
+    override fun constructViewBinding(): ViewBinding =
+        FragmentProfileBinding.inflate(layoutInflater)
 
 
-        return root
+    override fun init(viewBinding: ViewBinding,savedInstanceState: Bundle?) {
+        initUI()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    fun initUI() {
+        setTheme()
+        setLanguage()
+        setFavourites()
+        setupClickListeners()
+        addObservers()
+    }
+
+    fun addObservers() {
+
+    }
+
+    private fun setupClickListeners() {
+
+    }
+
+    private fun setTheme() {
+
+    }
+
+    private fun setLanguage() {
+
+    }
+
+    private fun setFavourites() {
+
+    }
+
+    override fun onResume() {
+        viewModel.updateActiveTab(2)
+        super.onResume()
     }
 }

@@ -1,6 +1,7 @@
 package com.pyroblinchik.newsfinder.domain.base.model
 
 
+// TODO "I" change to data classes
 class News{
     constructor()
     constructor(
@@ -17,7 +18,8 @@ class News{
         published_at: String?,
         isFavorite: Boolean,
         isInHistory: Boolean,
-        historyGroupId: Int
+        historyGroupId: Int,
+        historyDate: String?
     ) {
         this.id = id
         this.author = author
@@ -33,6 +35,7 @@ class News{
         this.isFavorite = isFavorite
         this.isInHistory = isInHistory
         this.historyGroupId = historyGroupId
+        this.historyDate = historyDate
     }
 
 
@@ -53,6 +56,7 @@ class News{
     var isFavorite: Boolean = false
     var isInHistory: Boolean = false
     var historyGroupId : Int = 0
+    var historyDate : String? = null
 
     override fun toString(): String {
         return "News(id=$id, author=$author, title=$title, description=$description, url=$url, source=$source, image=$image, category=$category, language=$language, country=$country, published_at=$published_at, isFavorite=$isFavorite, historyGroupId=$historyGroupId)"

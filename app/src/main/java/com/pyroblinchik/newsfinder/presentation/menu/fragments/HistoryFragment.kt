@@ -1,35 +1,59 @@
 package com.pyroblinchik.newsfinder.presentation.menu.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
+import androidx.viewbinding.ViewBinding
 import com.pyroblinchik.newsfinder.databinding.FragmentHistoryBinding
+import com.pyroblinchik.newsfinder.domain.base.model.News
+import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
+import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
+import com.pyroblinchik.newsfinder.util.view.toggleVisibility
 
-class HistoryFragment : Fragment() {
+class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
-    private var _binding: FragmentHistoryBinding? = null
+    // TODO "M" code HistoryFragment
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val viewModel by activityViewModels<MenuActivityViewModel>()
+    override fun constructViewBinding(): ViewBinding =
+        FragmentHistoryBinding.inflate(layoutInflater)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+//    lateinit var historyNewsAdapter: HistoryNewsAdapter
 
-        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+    override fun init(viewBinding: ViewBinding,savedInstanceState: Bundle?) {
+        initUI()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    fun addObservers() {
+        viewModel.newsHistory.observe(this) { list ->
+            getViewBinding().listViewHistoryNews.toggleVisibility(list.isNotEmpty())
+//            checkEmptyState(list)
+//            newsAdapter.submitList(list)
+        }
+    }
+
+    fun initUI() {
+        setHistoryNews()
+        setupClickListeners()
+        addObservers()
+    }
+
+    private fun setupClickListeners() {
+
+    }
+
+    override fun onResume() {
+        viewModel.updateActiveTab(1)
+        super.onResume()
+    }
+
+    private fun setHistoryNews() {
+        val onItemClickListener: ((news: News) -> Unit) = {
+
+        }
+
+//        historyNewsAdapter = HistoryNewsAdapter(
+//            onItemClickListener
+//        )
+//        getViewBinding().listViewHistoryNews.adapter = historyNewsAdapter
     }
 }

@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.pyroblinchik.newsfinder.domain.base.model.News
 
 class NewsDiffCallback
+    // TODO "M" Add callbacks
     () : DiffUtil.ItemCallback<News>() {
 
     override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {

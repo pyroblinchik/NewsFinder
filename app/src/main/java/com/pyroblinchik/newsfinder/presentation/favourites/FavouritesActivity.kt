@@ -9,4 +9,5 @@ class FavouritesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favourites)
     }
+    // TODO "I" create viewModel and UIState
 }
