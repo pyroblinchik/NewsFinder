@@ -15,7 +15,7 @@ import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
-    // TODO "I" code ProfileFragment
+    // TODO "I" code ProfileFragment (settings)
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
     override fun constructViewBinding(): ViewBinding =
@@ -43,7 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun setTheme() {
-
+        getViewBinding().favouritesTextView
     }
 
     private fun setLanguage() {
