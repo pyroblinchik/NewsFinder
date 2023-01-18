@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -25,10 +26,8 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var viewModel: MenuActivityViewModel
+    private val viewModel: MenuActivityViewModel by viewModels()
 
     private lateinit var binding: ActivityMenuBinding
 
@@ -46,15 +45,11 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component.inject(this)
 
         binding = ActivityMenuBinding.inflate(layoutInflater)
 
         setTheme(R.style.Theme_NewsFinder)
         setContentView(binding.root)
-
-        viewModel =
-            ViewModelProvider(this, viewModelFactory)[MenuActivityViewModel::class.java]
 
         initUI()
     }

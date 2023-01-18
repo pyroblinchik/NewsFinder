@@ -9,6 +9,7 @@ import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.domain.menu.GetNewsFeedFromNetworkUseCase
 import com.pyroblinchik.newsfinder.domain.menu.GetNewsHistoryFromDatabaseUseCase
 import com.pyroblinchik.newsfinder.util.ExceptionParser
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +19,7 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
+@HiltViewModel
 class NewsCardActivityViewModel @Inject constructor(
 ) : ViewModel() {
 

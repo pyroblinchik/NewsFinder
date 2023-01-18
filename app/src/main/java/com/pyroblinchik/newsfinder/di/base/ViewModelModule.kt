@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoMap
 
+/*
 @Module
 @InstallIn(SingletonComponent::class)
 interface ViewModelModule {
@@ -18,3 +19,4 @@ interface ViewModelModule {
     fun bindMenuViewModel(viewModel: MenuActivityViewModel): ViewModel
 
 }
+*/

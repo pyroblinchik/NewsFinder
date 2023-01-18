@@ -7,7 +7,7 @@ import com.pyroblinchik.newsfinder.data.database.dao.NewsDao
 import com.pyroblinchik.newsfinder.data.repository.FavouritesRepositoryImpl
 import com.pyroblinchik.newsfinder.data.repository.LanguagesRepositoryImpl
 import com.pyroblinchik.newsfinder.data.repository.MenuRepositoryImpl
-import com.pyroblinchik.newsfinder.di.base.ApplicationScope
+//import com.pyroblinchik.newsfinder.di.base.ApplicationScope
 import com.pyroblinchik.newsfinder.domain.favourites.FavouritesRepository
 import com.pyroblinchik.newsfinder.domain.languages.LanguagesRepository
 import com.pyroblinchik.newsfinder.domain.menu.MenuRepository
@@ -23,21 +23,21 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
     // jetpack compose is simply better than xml, u just gotta admit it
     @Binds
-    @ApplicationScope
+    //@ApplicationScope
     fun bindMenuRepository(impl: MenuRepositoryImpl): MenuRepository
 
     @Binds
-    @ApplicationScope
+    //@ApplicationScope
     fun bindFavouritesRepository(impl: FavouritesRepositoryImpl): FavouritesRepository
 
     @Binds
-    @ApplicationScope
+    //@ApplicationScope
     fun bindLanguagesRepository(impl: LanguagesRepositoryImpl): LanguagesRepository
 
     companion object {
 
         @Provides
-        @ApplicationScope
+        //@ApplicationScope
         fun provideNewsDao(
             application: Application
         ): NewsDao {
@@ -45,7 +45,7 @@ interface DataModule {
         }
 
         @Provides
-        @ApplicationScope
+        //@ApplicationScope
         fun provideLanguageDao(
             application: Application
         ): LanguagesDao {

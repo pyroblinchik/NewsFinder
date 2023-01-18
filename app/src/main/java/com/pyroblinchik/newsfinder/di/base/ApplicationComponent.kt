@@ -13,7 +13,8 @@ import com.pyroblinchik.newsfinder.presentation.newsCard.NewsCardActivity
 import dagger.BindsInstance
 import dagger.Component
 
-@ApplicationScope
+/*
+// @ApplicationScope
 @Component(
     modules = [
         DataModule::class,
@@ -47,3 +48,4 @@ interface ApplicationComponent {
         ): ApplicationComponent
     }
 }
+*/

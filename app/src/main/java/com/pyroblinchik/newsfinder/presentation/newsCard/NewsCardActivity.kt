@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,18 +18,15 @@ import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.databinding.ActivityNewsCardBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.util.view.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
-    private val component by lazy {
-        (application as SKApplication).component
-    }
-    private lateinit var viewModel: NewsCardActivityViewModel
+    private val viewModel: NewsCardActivityViewModel by viewModels()
 
     private lateinit var binding: ActivityNewsCardBinding
 
@@ -42,15 +40,11 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component.inject(this)
 
         binding = ActivityNewsCardBinding.inflate(layoutInflater)
 
         setTheme(R.style.Theme_NewsFinder)
         setContentView(binding.root)
-
-        viewModel =
-            ViewModelProvider(this, viewModelFactory)[NewsCardActivityViewModel::class.java]
 
         initUI()
     }
