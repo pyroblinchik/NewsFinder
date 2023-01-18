@@ -144,7 +144,7 @@ class MenuRepositoryImpl @Inject constructor(
     }
 
     override suspend fun updateUserSettingsFromDatabase(settings: UserSettings): UserSettings {
-        TODO("|I| save user settings in Shared Preferences")
+        gTODO("|I| save user settings in Shared Preferences")
     }
 
 
