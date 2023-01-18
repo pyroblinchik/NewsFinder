@@ -16,7 +16,6 @@ import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.databinding.ActivityNewsCardBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
-import com.pyroblinchik.newsfinder.presentation.base.ViewModelFactory
 import com.pyroblinchik.newsfinder.util.view.*
 import kotlinx.coroutines.launch
 import timber.log.Timber

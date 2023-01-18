@@ -8,7 +8,9 @@ import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 import com.pyroblinchik.newsfinder.util.view.toggleVisibility
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     // TODO "M" code HistoryFragment

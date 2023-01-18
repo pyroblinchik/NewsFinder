@@ -18,7 +18,10 @@ import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 import com.pyroblinchik.newsfinder.presentation.menu.view.NewsAdapter
 import com.pyroblinchik.newsfinder.util.view.toggleVisibility
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()

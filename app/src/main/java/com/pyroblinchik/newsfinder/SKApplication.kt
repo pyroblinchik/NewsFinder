@@ -1,17 +1,14 @@
 package com.pyroblinchik.newsfinder
 
 import android.app.Application
-import com.pyroblinchik.newsfinder.di.base.DaggerApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
+@HiltAndroidApp
 class SKApplication : Application() {
 
-    val component by lazy {
-        DaggerApplicationComponent.factory().create(this)
-    }
 
     override fun onCreate() {
-        component.inject(this)
         initLogger()
         super.onCreate()
     }

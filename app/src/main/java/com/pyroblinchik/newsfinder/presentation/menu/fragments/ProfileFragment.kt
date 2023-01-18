@@ -12,7 +12,9 @@ import androidx.viewbinding.ViewBinding
 import com.pyroblinchik.newsfinder.databinding.FragmentProfileBinding
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     // TODO "I" code ProfileFragment (settings)
