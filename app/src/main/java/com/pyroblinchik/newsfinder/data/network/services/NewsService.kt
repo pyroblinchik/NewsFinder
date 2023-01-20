@@ -1,9 +1,6 @@
 package com.pyroblinchik.newsfinder.data.network.services
 
-import com.pyroblinchik.newsfinder.data.network.model.NewsResponceDto
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
-import retrofit2.Response
+import com.pyroblinchik.newsfinder.data.network.model.NewsResponseDto
 import retrofit2.http.*
 
 // TODO
@@ -25,6 +22,6 @@ interface NewsService {
 //        @Query("sort") sort: String?,
 //        @Query("limit") limit: String?,
 //        @Query("offset") offset: String?
-        ): NewsResponceDto
+        ): NewsResponseDto
 
 }
