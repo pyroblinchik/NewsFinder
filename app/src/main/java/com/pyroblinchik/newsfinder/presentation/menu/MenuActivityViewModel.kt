@@ -18,6 +18,8 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
+// TODO |CONSIDER| rename "menu" to "panel" to distinguish better
+
 @HiltViewModel
 class MenuActivityViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsFeedFromNetworkUseCase,
@@ -108,7 +110,7 @@ class MenuActivityViewModel @Inject constructor(
         _uiState.value = MenuUIState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                // TODO "I" Get user settings using GetUserSettingsFromPreferencesUseCase
+                // TODO "I" Get user settings using GetUserSettingsFromPreferencesUseCase ()
 
             } catch (error: Exception) {
                 error.printStackTrace()
@@ -123,7 +125,6 @@ class MenuActivityViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // TODO "I" Get languages settings using GetLanguagesFromDatabaseUseCase
-
             } catch (error: Exception) {
                 error.printStackTrace()
                 Timber.d(ExceptionParser.getMessage(error).toString())

@@ -1,7 +1,6 @@
 package com.pyroblinchik.newsfinder.domain.base.model
 
 
-// TODO "I" change to data classes
 data class News(
     var id: Int = 0,
     var author: String? = null,
