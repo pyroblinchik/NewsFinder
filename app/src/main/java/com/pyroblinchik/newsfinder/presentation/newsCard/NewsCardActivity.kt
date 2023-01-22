@@ -118,6 +118,8 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
+                val intent = Intent()
+                setResult(requestCode, intent)
                 backPressed()
             }
         }
@@ -143,6 +145,7 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     companion object {
         private const val MODE_UNKNOWN = 0
+        val MODE_NEWS_GET = 1
 
         var news = News()
         var requestCode = MODE_UNKNOWN
@@ -153,6 +156,7 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
             news: News,
             result: ActivityResultLauncher<Intent>,
         ) {
+            this.requestCode = MODE_NEWS_GET
             this.news = news
             result.launch(
                 Intent(activity, NewsCardActivity::class.java),

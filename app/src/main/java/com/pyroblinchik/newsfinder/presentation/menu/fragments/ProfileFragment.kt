@@ -1,27 +1,35 @@
 package com.pyroblinchik.newsfinder.presentation.menu.fragments
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.pyroblinchik.newsfinder.databinding.FragmentProfileBinding
+import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.languages.LanguageActivity
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
+import com.pyroblinchik.newsfinder.presentation.newsCard.NewsCardActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     // TODO "I" code ProfileFragment (settings)
+
+    val newsResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            when(result.resultCode) {
+                NewsCardActivity.MODE_NEWS_GET -> {
+                    val newsFromCard = NewsCardActivity.news
+                }
+            }
+        }
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
     override fun constructViewBinding(): ViewBinding =
@@ -65,8 +73,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private fun setLanguage() {
         getViewBinding().languageSettingsLL.setOnClickListener {
-            val intent = Intent(activity, LanguageActivity::class.java)
-            startActivity(intent)
+            NewsCardActivity.startForResult(requireActivity(), News(), newsResult)
+//            val intent = Intent(activity, LanguageActivity::class.java)
+//            startActivity(intent)
         }
     }
 
