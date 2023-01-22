@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="85dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -20,6 +20,22 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/loading_with_dots" />
 
+    <TextView
+        android:id="@+id/engNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/gray16UbuntuMedium"
+        android:textColor="@color/gray_transparency_68"
+        android:text="@string/loading_with_dots"
+        app:layout_constraintTop_toBottomOf="@id/headerTextView"
+        app:layout_constraintStart_toStartOf="@id/headerTextView"
+        app:layout_constraintEnd_toStartOf="@id/bookmarkImageView"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="13sp"/>
+
+
     <ImageView
         android:id="@+id/bookmarkImageView"
         android:layout_width="wrap_content"
@@ -29,7 +45,7 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_check"
         app:layout_constraintTop_toTopOf="@+id/headerTextView"
-        app:layout_constraintBottom_toBottomOf="@+id/headerTextView"
+        app:layout_constraintBottom_toBottomOf="@+id/engNameTextView"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
@@ -42,5 +58,6 @@
         android:background="@drawable/rectangle_1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/headerTextView"
-        app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/engNameTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

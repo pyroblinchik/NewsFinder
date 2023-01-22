@@ -1,5 +1,6 @@
 package com.pyroblinchik.newsfinder.presentation.menu.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.google.android.material.snackbar.Snackbar
 import com.pyroblinchik.newsfinder.databinding.FragmentProfileBinding
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
+import com.pyroblinchik.newsfinder.presentation.languages.LanguageActivity
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -62,7 +64,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     private fun setLanguage() {
-
+        getViewBinding().languageSettingsLL.setOnClickListener {
+            val intent = Intent(activity, LanguageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setFavourites() {

@@ -176,8 +176,7 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     override fun onBackPressed() {
         backPressed()
     }
-
-
+    // where fragments are changing
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

@@ -110,7 +110,7 @@ class MenuActivityViewModel @Inject constructor(
         _uiState.value = MenuUIState.Loading
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                // TODO "I" Get user settings using GetUserSettingsFromPreferencesUseCase ()
+                // TODO "I" Get user settings using GetUserSettingsFromPreferencesUseCase
 
             } catch (error: Exception) {
                 error.printStackTrace()
