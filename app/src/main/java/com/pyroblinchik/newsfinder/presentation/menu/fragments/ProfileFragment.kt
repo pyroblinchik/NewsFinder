@@ -22,13 +22,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     // TODO "I" code ProfileFragment (settings)
 
-    val newsResult =
+    val languageResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            when(result.resultCode) {
-                NewsCardActivity.MODE_NEWS_GET -> {
-                    val newsFromCard = NewsCardActivity.news
-                }
+            {
+
             }
+
         }
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
@@ -36,7 +35,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         FragmentProfileBinding.inflate(layoutInflater)
 
 
-    override fun init(viewBinding: ViewBinding,savedInstanceState: Bundle?) {
+    override fun init(viewBinding: ViewBinding, savedInstanceState: Bundle?) {
         initUI()
     }
 
@@ -73,9 +72,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private fun setLanguage() {
         getViewBinding().languageSettingsLL.setOnClickListener {
-            NewsCardActivity.startForResult(requireActivity(), News(), newsResult)
-//            val intent = Intent(activity, LanguageActivity::class.java)
-//            startActivity(intent)
+            LanguageActivity.startForResult(requireActivity(), languageResult)
         }
     }
 
