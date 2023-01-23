@@ -13,12 +13,34 @@ class LanguagesRepositoryImpl @Inject constructor(
     private val dao: LanguagesDao
 ) : LanguagesRepository {
 
+    val languages = listOf(
+        Language(
+            id = 0,
+            name = "English",
+            nameEng = "English",
+            code = "??"
+        ),
+        Language(
+            id = 1,
+            name = "Русский",
+            nameEng = "Russian",
+            code = "??"
+        ),
+        Language(
+            id = 2,
+            name = "Deutsch",
+            nameEng = "German",
+            code = "??"
+        ),
+    )
+
     override suspend fun getLanguagesFromDatabase(): List<Language> {
         val listDB = dao.getLanguages()
         val list = ArrayList<Language>()
         listDB?.forEach {
             list.add(mapper.mapDbModelToEntity(it))
         }
-        return list
+        // return list
+        return languages
     }
 }
