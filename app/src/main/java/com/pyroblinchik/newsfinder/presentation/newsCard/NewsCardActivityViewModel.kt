@@ -41,10 +41,9 @@ class NewsCardActivityViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
 
-
             } catch (error: Exception) {
                 error.printStackTrace()
-                Timber.d(ExceptionParser.getMessage(error).toString())
+                Timber.d(ExceptionParser.getMessage(error))
                 _uiState.value = NewsCardUIState.Error(ExceptionParser.getMessage(error))
             }
         }

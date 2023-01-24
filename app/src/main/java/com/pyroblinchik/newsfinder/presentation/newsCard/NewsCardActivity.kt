@@ -159,6 +159,7 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
             this.requestCode = MODE_NEWS_GET
             this.news = news
             result.launch(
+                // ActivityResultLauncher<Type>
                 Intent(activity, NewsCardActivity::class.java),
             )
         }
