@@ -5,5 +5,4 @@ import com.pyroblinchik.newsfinder.databinding.ListItemWithCheckMarkBinding
 
 class LanguageHolder(
     val binding: ListItemWithCheckMarkBinding
-): RecyclerView.ViewHolder(binding.root) {
-}
+): RecyclerView.ViewHolder(binding.root)

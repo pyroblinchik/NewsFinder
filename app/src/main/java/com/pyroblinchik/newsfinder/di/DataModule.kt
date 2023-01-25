@@ -16,6 +16,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 
 @Module
@@ -23,21 +24,20 @@ import dagger.hilt.components.SingletonComponent
 interface DataModule {
     // jetpack compose is simply better than xml, u just gotta admit it
     @Binds
-    //@ApplicationScope
+    @Singleton
     fun bindMenuRepository(impl: MenuRepositoryImpl): MenuRepository
 
     @Binds
-    //@ApplicationScope
+    @Singleton
     fun bindFavouritesRepository(impl: FavouritesRepositoryImpl): FavouritesRepository
 
     @Binds
-    //@ApplicationScope
+    @Singleton
     fun bindLanguagesRepository(impl: LanguagesRepositoryImpl): LanguagesRepository
 
     companion object {
 
         @Provides
-        //@ApplicationScope
         fun provideNewsDao(
             application: Application
         ): NewsDao {
@@ -45,7 +45,6 @@ interface DataModule {
         }
 
         @Provides
-        //@ApplicationScope
         fun provideLanguageDao(
             application: Application
         ): LanguagesDao {

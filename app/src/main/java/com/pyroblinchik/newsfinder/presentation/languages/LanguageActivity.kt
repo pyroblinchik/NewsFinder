@@ -2,15 +2,13 @@ package com.pyroblinchik.newsfinder.presentation.languages
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
-import androidx.compose.ui.res.stringResource
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,11 +54,11 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         // handle toolbar
         setToolbar()
 
-        // handle state behaviour
-        addStateBehaviour()
-
         // handle language list
         setLanguages()
+
+        // handle state behaviour
+        addStateBehaviour()
     }
 
     private fun addStateBehaviour() {
@@ -78,6 +76,7 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
                             Timber.d("loaded")
                         }
                         is LanguageUIState.Finish -> {
+                            Timber.d("finished")
                             hideLoading()
                             finish()
                         }
@@ -111,19 +110,16 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     }
 
-    // FIXME |I| language list is disappearing if you open and close it several times
     private fun setLanguages() {
-
-        var adapter = LanguageAdapter(listOf())
         lifecycleScope.launch {
-            languageViewModel.languages.collectLatest {
-                adapter = LanguageAdapter(it)
+            languageViewModel.languages.collectLatest {languages: List<Language> ->
+                val adapter = LanguageAdapter(languages)
+                binding.languagesListView.let {
+                    it.adapter = adapter
+                    it.layoutManager = LinearLayoutManager(this@LanguageActivity)
+                    it.visible()
+                }
             }
-        }
-        binding.languagesListView.let {
-            it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(this)
-            it.visible()
         }
     }
 
