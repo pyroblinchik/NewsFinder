@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.google.android.material.snackbar.Snackbar
 import com.pyroblinchik.newsfinder.databinding.FragmentProfileBinding
-import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
+import com.pyroblinchik.newsfinder.presentation.favourites.FavouritesActivity
 import com.pyroblinchik.newsfinder.presentation.languages.LanguageActivity
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
-import com.pyroblinchik.newsfinder.presentation.newsCard.NewsCardActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,13 +18,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     // TODO "I" code ProfileFragment (settings)
 
-    val languageResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            {
+    private val emptyResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 
-            }
-
-        }
+    }
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
     override fun constructViewBinding(): ViewBinding =
@@ -72,12 +65,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private fun setLanguage() {
         getViewBinding().languageSettingsLL.setOnClickListener {
-            LanguageActivity.startForResult(requireActivity(), languageResult)
+            LanguageActivity.startForResult(requireActivity(), emptyResult)
         }
     }
 
     private fun setFavourites() {
-
+        getViewBinding().favouritesSettingsLL.setOnClickListener {
+            FavouritesActivity.startForResult(requireActivity(), emptyResult)
+        }
     }
 
     override fun onResume() {

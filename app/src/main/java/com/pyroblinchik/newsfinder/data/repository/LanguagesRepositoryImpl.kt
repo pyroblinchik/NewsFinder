@@ -18,19 +18,19 @@ class LanguagesRepositoryImpl @Inject constructor(
             id = 0,
             name = "English",
             nameEng = "English",
-            code = "??"
+            code = "ru-rRU"
         ),
         Language(
             id = 1,
             name = "Русский",
             nameEng = "Russian",
-            code = "??"
+            code = "en"
         ),
         Language(
             id = 2,
             name = "Deutsch",
             nameEng = "German",
-            code = "??"
+            code = "gem"
         ),
     )
 
