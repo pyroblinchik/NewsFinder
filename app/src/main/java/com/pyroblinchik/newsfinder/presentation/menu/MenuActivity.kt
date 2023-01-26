@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -15,27 +16,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.pyroblinchik.newsfinder.R
-import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.databinding.ActivityMenuBinding
-import com.pyroblinchik.newsfinder.presentation.base.ViewModelFactory
-import com.pyroblinchik.newsfinder.presentation.menu.view.NewsAdapter
 import com.pyroblinchik.newsfinder.util.view.*
-import kotlinx.coroutines.delay
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
 
-    private val component by lazy {
-        (application as SKApplication).component
-    }
-    private lateinit var viewModel: MenuActivityViewModel
+    private val viewModel: MenuActivityViewModel by viewModels()
 
     private lateinit var binding: ActivityMenuBinding
 
@@ -53,15 +45,11 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component.inject(this)
 
         binding = ActivityMenuBinding.inflate(layoutInflater)
 
         setTheme(R.style.Theme_NewsFinder)
         setContentView(binding.root)
-
-        viewModel =
-            ViewModelProvider(this, viewModelFactory)[MenuActivityViewModel::class.java]
 
         initUI()
     }
@@ -188,8 +176,7 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     override fun onBackPressed() {
         backPressed()
     }
-
-
+    // where fragments are changing
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {

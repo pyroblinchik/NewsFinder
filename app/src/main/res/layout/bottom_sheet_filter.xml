@@ -15,20 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/sortByTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                style="@style/gray16UbuntuMedium"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="21dp"
-                android:maxLines="1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="@string/sort_by" />
-
             <Spinner
                 android:id="@+id/update_day_spinner"
                 style="@style/darkGreen16UbuntuBold"
@@ -39,6 +25,18 @@
                 app:layout_constraintStart_toEndOf="@+id/sortByTextView"
                 app:layout_constraintTop_toTopOf="@id/sortByTextView" />
 
+
+            <TextView
+                android:id="@+id/sortByTextView"
+                style="@style/gray16UbuntuMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:maxLines="1"
+                android:text="@string/sort_by"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/categoriesTextView"

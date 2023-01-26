@@ -9,6 +9,7 @@ import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.domain.menu.GetNewsFeedFromNetworkUseCase
 import com.pyroblinchik.newsfinder.domain.menu.GetNewsHistoryFromDatabaseUseCase
 import com.pyroblinchik.newsfinder.util.ExceptionParser
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,16 +18,19 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
+// TODO |CONSIDER| rename "menu" to "panel" to distinguish better
+
+@HiltViewModel
 class MenuActivityViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsFeedFromNetworkUseCase,
     private val getNewsHistoryFromDatabaseUseCase: GetNewsHistoryFromDatabaseUseCase,
 ) : ViewModel() {
 
-    private val _news = MutableLiveData<ArrayList<News>>(ArrayList())
+    private val _news = MutableLiveData<ArrayList<News>>()
     val news: LiveData<ArrayList<News>>
         get() = _news
 
-    private val _newsHistory = MutableLiveData<ArrayList<News>>(ArrayList())
+    private val _newsHistory = MutableLiveData<ArrayList<News>>()
     val newsHistory: LiveData<ArrayList<News>>
         get() = _newsHistory
 
@@ -121,7 +125,6 @@ class MenuActivityViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 // TODO "I" Get languages settings using GetLanguagesFromDatabaseUseCase
-
             } catch (error: Exception) {
                 error.printStackTrace()
                 Timber.d(ExceptionParser.getMessage(error).toString())

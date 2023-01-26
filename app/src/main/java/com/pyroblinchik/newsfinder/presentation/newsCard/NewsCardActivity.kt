@@ -2,34 +2,32 @@ package com.pyroblinchik.newsfinder.presentation.newsCard
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
 import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.databinding.ActivityNewsCardBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
-import com.pyroblinchik.newsfinder.presentation.base.ViewModelFactory
 import com.pyroblinchik.newsfinder.util.view.*
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val component by lazy {
-        (application as SKApplication).component
-    }
-    private lateinit var viewModel: NewsCardActivityViewModel
 
     private lateinit var binding: ActivityNewsCardBinding
 
@@ -43,15 +41,11 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        component.inject(this)
 
         binding = ActivityNewsCardBinding.inflate(layoutInflater)
 
         setTheme(R.style.Theme_NewsFinder)
         setContentView(binding.root)
-
-        viewModel =
-            ViewModelProvider(this, viewModelFactory)[NewsCardActivityViewModel::class.java]
 
         initUI()
     }
@@ -72,36 +66,63 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     private fun initUI() {
         setToolbar()
 
+        setTitle()
+        setDate()
+        setCategory()
 
-        addObservers()
+        setImage()
+
+        setContent()
+
+        setSource()
+        setAuthor()
+
+        setFavouritesBookmark()
+
         addClickListeners()
     }
 
-    fun addObservers() {
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    when (state) {
-                        is NewsCardUIState.Error -> {
-                            Timber.e("error")
-//                            checkStateForTimeout(state.message)
-                            hideLoading()
-                        }
-                        is NewsCardUIState.Loading -> {
-                            Timber.e("loading")
-                            showLoading()
-                        }
-                        is NewsCardUIState.Finish -> {
-                            finish()
-                        }
-                        else -> {
-                            hideLoading()
-                        }
-                    }
-                }
-            }
+    private fun setFavouritesBookmark() {
+        if (news.isFavorite){
+            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_dark_green)
+        } else{
+            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_empty)
         }
+    }
+
+    private fun setAuthor() {
+        binding.authorTextView.text = news.author
+    }
+
+    private fun setSource() {
+        // TODO "M"  add source image
+        binding.sourceTextView.text = news.source
+    }
+
+    private fun setContent() {
+        binding.contentTextView.text = news.description
+    }
+
+    private fun setImage() {
+        try {
+            Glide.with(this)
+                .load(Uri.parse(news.image))
+                .into(binding.imageViewContainer)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setCategory() {
+        binding.categoryTextView.text = news.category
+    }
+
+    private fun setDate() {
+        binding.dateTextView.text = news.published_at.toString()
+    }
+
+    private fun setTitle(){
+        binding.headerTextView.text = news.title
     }
 
     private fun addClickListeners() {
@@ -125,6 +146,8 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
+                val intent = Intent()
+                setResult(requestCode, intent)
                 backPressed()
             }
         }
@@ -162,6 +185,7 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         ) {
             this.news = news
             result.launch(
+                // ActivityResultLauncher<Type>
                 Intent(activity, NewsCardActivity::class.java),
             )
         }
