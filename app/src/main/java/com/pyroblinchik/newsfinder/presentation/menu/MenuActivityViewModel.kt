@@ -26,11 +26,11 @@ class MenuActivityViewModel @Inject constructor(
     private val getNewsHistoryFromDatabaseUseCase: GetNewsHistoryFromDatabaseUseCase,
 ) : ViewModel() {
 
-    private val _news = MutableLiveData<ArrayList<News>>(ArrayList())
+    private val _news = MutableLiveData<ArrayList<News>>()
     val news: LiveData<ArrayList<News>>
         get() = _news
 
-    private val _newsHistory = MutableLiveData<ArrayList<News>>(ArrayList())
+    private val _newsHistory = MutableLiveData<ArrayList<News>>()
     val newsHistory: LiveData<ArrayList<News>>
         get() = _newsHistory
 
