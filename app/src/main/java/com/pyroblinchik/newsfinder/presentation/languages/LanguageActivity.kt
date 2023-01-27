@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.pyroblinchik.newsfinder.util.view.ISetToolbar
 import com.pyroblinchik.newsfinder.util.view.gone
 import com.pyroblinchik.newsfinder.util.view.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -32,6 +34,8 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     private lateinit var binding: ActivityLanguageBinding
 
     private val languageViewModel: LanguageViewModel by viewModels()
+
+    private lateinit var languageAdapter: LanguageAdapter
 
     private val toolbar: ToolbarBinding by lazy {
         binding.includeToolbar
@@ -58,37 +62,49 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         setLanguages()
 
         // handle state behaviour
-        addStateBehaviour()
+        addObservers()
     }
 
-    private fun addStateBehaviour() {
+    private fun addObservers() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                // harvest latest state
-                languageViewModel.uiState.collectLatest {state: LanguageUIState ->
-                    when(state) {
-                        is LanguageUIState.Loading -> {
-                            showLoading()
-                            Timber.d("loading")
-                        }
-                        is LanguageUIState.Loaded -> {
-                            hideLoading()
-                            Timber.d("loaded")
-                        }
-                        is LanguageUIState.Finish -> {
-                            Timber.d("finished")
-                            hideLoading()
-                            finish()
-                        }
-                        is LanguageUIState.Error -> {
-                            Timber.e("error")
-                            hideLoading()
-                        }
-                        else -> {
-                            hideLoading()
+
+                val submitList = async {
+                    // update adapter list when languages updates
+                    languageViewModel.languages.collectLatest {
+                        languageAdapter.submitList(it)
+                    }
+                }
+
+                val addStateBehaviour = async {
+                    // harvest latest state
+                    languageViewModel.uiState.collectLatest {state: LanguageUIState ->
+                        when(state) {
+                            is LanguageUIState.Loading -> {
+                                showLoading()
+                                Timber.d("loading")
+                            }
+                            is LanguageUIState.Loaded -> {
+                                hideLoading()
+                                Timber.d("loaded")
+                            }
+                            is LanguageUIState.Finish -> {
+                                Timber.d("finished")
+                                hideLoading()
+                                finish()
+                            }
+                            is LanguageUIState.Error -> {
+                                Timber.e("error")
+                                hideLoading()
+                            }
+                            else -> {
+                                hideLoading()
+                            }
                         }
                     }
                 }
+                submitList.await()
+                addStateBehaviour.await()
             }
         }
     }
@@ -111,15 +127,16 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     }
 
     private fun setLanguages() {
-        lifecycleScope.launch {
-            languageViewModel.languages.collectLatest {languages: List<Language> ->
-                val adapter = LanguageAdapter(languages)
-                binding.languagesListView.let {
-                    it.adapter = adapter
-                    it.layoutManager = LinearLayoutManager(this@LanguageActivity)
-                    it.visible()
-                }
-            }
+        // action on click language item
+        val onLanguageClickListener: ((Language) -> Unit) = {
+            Toast.makeText(this, it.nameEng, Toast.LENGTH_SHORT).show()
+        }
+
+        languageAdapter = LanguageAdapter(onLanguageClickListener)
+        binding.languagesListView.apply {
+            adapter = languageAdapter
+            layoutManager = LinearLayoutManager(this@LanguageActivity)
+            visible()
         }
     }
 
