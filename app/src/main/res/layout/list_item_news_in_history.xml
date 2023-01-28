@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/ic_news_item_rectangle">
+    android:background="@drawable/ic_news_item_rectangle_green">
 
     <TextView
         android:id="@+id/headerTextView"

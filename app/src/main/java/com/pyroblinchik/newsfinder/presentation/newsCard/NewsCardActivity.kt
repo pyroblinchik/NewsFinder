@@ -31,9 +31,9 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     private lateinit var binding: ActivityNewsCardBinding
 
-    private val progressView: ProgressBar by lazy {
-        binding.progressView
-    }
+//    private val progressView: ProgressBar by lazy {
+//        binding.progressView
+//    }
 
     private val toolbar by lazy {
         binding.includeToolbar
@@ -55,13 +55,14 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         setSupportActionBar(toolbar.mainToolbar)
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        binding.includeToolbar.mainToolbar.setLogo(R.drawable.ic_logo_horizontal)
+        setToolbarTitle()
+//        binding.includeToolbar.mainToolbar.setLogo(R.drawable.ic_logo_horizontal)
     }
 
-//    private fun setToolbarTitle() {
-//        binding.includeToolbar.titleToolbar.text =
-//            "${getString(R.string.)} ${inspection.?.name ?: ""}"
-//    }
+    private fun setToolbarTitle() {
+        binding.includeToolbar.titleToolbar.text =
+            "${news.title}"
+    }
 
     private fun initUI() {
         setToolbar()
@@ -164,11 +165,11 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     }
 
     override fun showLoading() {
-        progressView.visible()
+//        progressView.visible()
     }
 
     override fun hideLoading() {
-        progressView.gone()
+//        progressView.gone()
     }
 
     companion object {

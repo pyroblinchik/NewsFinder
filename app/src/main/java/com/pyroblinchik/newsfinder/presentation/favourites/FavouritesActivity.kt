@@ -15,7 +15,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.databinding.ActivityFavouritesBinding
-import com.pyroblinchik.newsfinder.databinding.ToolbarBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.favourites.views.FavouritesAdapter
 import com.pyroblinchik.newsfinder.util.view.IProgressView
@@ -37,9 +36,9 @@ class FavouritesActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     private val favouritesViewModel: FavouritesViewModel by viewModels()
 
-    private val toolbar: ToolbarBinding by lazy {
-        binding.includeToolbar
-    }
+//    private val toolbar: ToolbarBinding by lazy {
+//        binding.includeToolbar
+//    }
 
     private val progressView: ProgressBar by lazy {
         binding.progressView
@@ -63,10 +62,10 @@ class FavouritesActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         setFavourites()
 
         // handle state behaviour
-        addStateBehaviour()
+        addObserver()
     }
 
-    private fun addStateBehaviour() {
+    private fun addObserver() {
         lifecycleScope.launch {
 
             val submitList = async {
@@ -109,7 +108,7 @@ class FavouritesActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     }
 
     override fun setToolbar() {
-        setSupportActionBar(toolbar.mainToolbar)
+//        setSupportActionBar(toolbar.mainToolbar)
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.includeToolbar.titleToolbar.setText(R.string.favourites)

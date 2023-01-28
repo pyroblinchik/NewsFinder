@@ -75,6 +75,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private fun setNews() {
         val onItemClickListener: ((news: News) -> Unit) = {
+            // TODO "|I| viewModel.addToHistory"
             NewsCardActivity.startForResult(requireActivity(),it,emptyResult)
         }
 

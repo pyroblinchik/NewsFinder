@@ -24,6 +24,7 @@ import javax.inject.Inject
 class MenuActivityViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsFeedFromNetworkUseCase,
     private val getNewsHistoryFromDatabaseUseCase: GetNewsHistoryFromDatabaseUseCase,
+    // TODO "|I| AddNewsToHistory"
 ) : ViewModel() {
 
     private val _news = MutableLiveData<ArrayList<News>>()
@@ -105,6 +106,8 @@ class MenuActivityViewModel @Inject constructor(
             }
         }
     }
+
+    // TODO "|I| AddToHistory function"
 
     private fun getUserSettings() {
         _uiState.value = MenuUIState.Loading

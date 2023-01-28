@@ -15,7 +15,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.databinding.ActivityLanguageBinding
-import com.pyroblinchik.newsfinder.databinding.ToolbarBinding
 import com.pyroblinchik.newsfinder.domain.base.model.Language
 import com.pyroblinchik.newsfinder.presentation.languages.views.LanguageAdapter
 import com.pyroblinchik.newsfinder.util.view.IProgressView
@@ -37,9 +36,9 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     private lateinit var languageAdapter: LanguageAdapter
 
-    private val toolbar: ToolbarBinding by lazy {
-        binding.includeToolbar
-    }
+//    private val toolbar: ToolbarBinding by lazy {
+//        binding.includeToolbar
+//    }
 
     private val progressView: ProgressBar by lazy {
         binding.progressView
@@ -110,7 +109,7 @@ class LanguageActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     }
 
     override fun setToolbar() {
-        setSupportActionBar(toolbar.mainToolbar)
+//        setSupportActionBar(toolbar.mainToolbar)
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         binding.includeToolbar.titleToolbar.setText(R.string.languages)
