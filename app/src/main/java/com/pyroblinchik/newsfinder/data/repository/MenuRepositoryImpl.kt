@@ -58,7 +58,7 @@ class MenuRepositoryImpl @Inject constructor(
         news1.historyGroupId = 0
 
         val news2 = News()
-        news2.id = 0
+        news2.id = 1
         news2.author = "Eric Kuperson"
         news2.title = "Apple boss Tim Cook to have pay cut by over 40% this year"
         news2.description = "Apple chief executive Tim Cook will see his annual pay package slashed by more than 40% this year.\n" +
@@ -81,6 +81,15 @@ class MenuRepositoryImpl @Inject constructor(
                 "\n" +
                 "\"The Compensation Committee balanced shareholder feedback, Apple's exceptional performance, and a recommendation from Mr Cook to adjust his compensation in light of the feedback received,\" Apple said in a filing with a US financial watchdog.\n" +
                 "\n" +
+                "The move will see Mr Cook's annual basic salary unchanged at \$3m, as well as a bonus of up to \$6m." +
+                "\n" +
+                "\"The Compensation Committee balanced shareholder feedback, Apple's exceptional performance, and a recommendation from Mr Cook to adjust his compensation in light of the feedback received,\" Apple said in a filing with a US financial watchdog.\n" +
+                "\n" +
+                "The move will see Mr Cook's annual basic salary unchanged at \$3m, as well as a bonus of up to \$6m." +
+                "Last year the iPhone maker's shares fell sharply in the face of supply chain issues and a global economic slowdown.\n" +
+                "\n" +
+                "\"The Compensation Committee balanced shareholder feedback, Apple's exceptional performance, and a recommendation from Mr Cook to adjust his compensation in light of the feedback received,\" Apple said in a filing with a US financial watchdog.\n" +
+                "\n" +
                 "The move will see Mr Cook's annual basic salary unchanged at \$3m, as well as a bonus of up to \$6m."
         news2.url = "https://www.bbc.com/news/business-64258289"
         news2.source = "BBC News"
@@ -94,7 +103,7 @@ class MenuRepositoryImpl @Inject constructor(
         news2.historyGroupId = 0
 
         val news3 = News()
-        news3.id = 0
+        news3.id = 2
         news3.author = "Eric Kuperson"
         news3.title = "VR headset prices high as Apple bides its time"
         news3.description = "Last week in Las Vegas I boxed, hunted for cute aliens, flew a laser-shooting robot and drew my own masterpiece - all in virtual reality.\n" +
@@ -116,7 +125,7 @@ class MenuRepositoryImpl @Inject constructor(
         news3.historyGroupId = 0
 
         val news4 = News()
-        news4.id = 0
+        news4.id = 3
         news4.author = "Michael Djekovich"
         news4.title = "Your pictures on the theme of 'open doors'"
         news4.description = "We asked our readers to send in their best pictures on the theme of \"open doors\". Here is a selection of the photographs we received from around the world."
