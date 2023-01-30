@@ -6,6 +6,7 @@
     <string name="title_profile">profile</string>
     <string name="main_toolbar">Toolbar</string>
     <string name="filter">Filter</string>
+    <string name="search">Search</string>
     <string name="loading_with_dots">Loading…</string>
     <string name="source">source</string>
     <string name="author">author</string>

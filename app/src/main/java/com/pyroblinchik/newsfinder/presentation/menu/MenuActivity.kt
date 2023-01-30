@@ -11,7 +11,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
@@ -22,7 +21,6 @@ import com.pyroblinchik.newsfinder.util.view.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
@@ -156,7 +154,7 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 //        }
         when (viewModel.activeTab.value) {
             0 -> {
-                menuInflater.inflate(R.menu.menu_filter, menu)
+                menuInflater.inflate(R.menu.menu_with_search_and_filter, menu)
             }
             1 -> {
                 menuInflater.inflate(R.menu.empty_menu, menu)

@@ -1,13 +1,18 @@
 package com.pyroblinchik.newsfinder.presentation.menu.fragments
 
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import com.pyroblinchik.newsfinder.databinding.FragmentHistoryBinding
 import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
+import com.pyroblinchik.newsfinder.presentation.menu.view.NewsAdapter
+import com.pyroblinchik.newsfinder.presentation.newsCard.NewsCardActivity
 import com.pyroblinchik.newsfinder.util.view.toggleVisibility
+import com.pyroblinchik.newsfinder.util.view.visible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,17 +24,22 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     override fun constructViewBinding(): ViewBinding =
         FragmentHistoryBinding.inflate(layoutInflater)
 
-//    lateinit var historyNewsAdapter: HistoryNewsAdapter
+    private lateinit var newsAdapter: NewsAdapter
 
-    override fun init(viewBinding: ViewBinding,savedInstanceState: Bundle?) {
+    private val emptyResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+
+    }
+
+
+    override fun init(viewBinding: ViewBinding, savedInstanceState: Bundle?) {
         initUI()
     }
 
     fun addObservers() {
+        viewModel.updateHistoryNewsList()
         viewModel.newsHistory.observe(this) { list ->
             getViewBinding().listViewHistoryNews.toggleVisibility(list.isNotEmpty())
-//            checkEmptyState(list)
-//            newsAdapter.submitList(list)
+            newsAdapter.submitList(list)
         }
     }
 
@@ -49,13 +59,14 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     private fun setHistoryNews() {
-        val onItemClickListener: ((news: News) -> Unit) = {
-
+        val onNewsClickListener: ((News) -> Unit) = {
+            NewsCardActivity.startForResult(requireActivity(), it, emptyResult)
         }
-
-//        historyNewsAdapter = HistoryNewsAdapter(
-//            onItemClickListener
-//        )
-//        getViewBinding().listViewHistoryNews.adapter = historyNewsAdapter
+        newsAdapter = NewsAdapter(onNewsClickListener)
+        getViewBinding().listViewHistoryNews.apply {
+            this.adapter = newsAdapter
+            this.layoutManager = LinearLayoutManager(requireContext())
+            this.visible()
+        }
     }
 }

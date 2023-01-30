@@ -71,6 +71,16 @@ class MenuRepositoryImpl @Inject constructor(
                 "\n" +
                 "\"The Compensation Committee balanced shareholder feedback, Apple's exceptional performance, and a recommendation from Mr Cook to adjust his compensation in light of the feedback received,\" Apple said in a filing with a US financial watchdog.\n" +
                 "\n" +
+                "The move will see Mr Cook's annual basic salary unchanged at \$3m, as well as a bonus of up to \$6m." +
+                "Last year the iPhone maker's shares fell sharply in the face of supply chain issues and a global economic slowdown.\n" +
+                "\n" +
+                "\"The Compensation Committee balanced shareholder feedback, Apple's exceptional performance, and a recommendation from Mr Cook to adjust his compensation in light of the feedback received,\" Apple said in a filing with a US financial watchdog.\n" +
+                "\n" +
+                "The move will see Mr Cook's annual basic salary unchanged at \$3m, as well as a bonus of up to \$6m." +
+                "Last year the iPhone maker's shares fell sharply in the face of supply chain issues and a global economic slowdown.\n" +
+                "\n" +
+                "\"The Compensation Committee balanced shareholder feedback, Apple's exceptional performance, and a recommendation from Mr Cook to adjust his compensation in light of the feedback received,\" Apple said in a filing with a US financial watchdog.\n" +
+                "\n" +
                 "The move will see Mr Cook's annual basic salary unchanged at \$3m, as well as a bonus of up to \$6m."
         news2.url = "https://www.bbc.com/news/business-64258289"
         news2.source = "BBC News"
@@ -127,7 +137,9 @@ class MenuRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getNewsHistoryFromDatabase(): List<News> {
+        // TODO |I| get news from history database
         val listDB = dao.getHistoryNews()
+        println(listDB?.size)
         val list = ArrayList<News>()
         listDB?.forEach {
             list.add(mapper.mapDbModelToEntity(it))
@@ -136,6 +148,8 @@ class MenuRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addNewsToHistoryDatabase(news: News) {
+        // TODO |I| add news to history database
+        news.isInHistory = true
         dao.insertNews(mapper.mapEntityToDBModel(news))
     }
 

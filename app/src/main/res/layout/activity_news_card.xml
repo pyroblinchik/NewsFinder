@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.newsCard.NewsCardActivity">
 
-    <include
-        android:id="@+id/include_toolbar"
-        layout="@layout/toolbar"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main.appbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true"
+        >
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/main.collapsing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="64dp"
+            >
+
+            <include
+                android:id="@+id/include_toolbar"
+                layout="@layout/toolbar_card"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/include_toolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl"
@@ -27,15 +49,15 @@
                 android:id="@+id/cardCl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/ic_news_item_rectangle">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <TextView
                     android:id="@+id/headerTextView"
                     style="@style/darkGreen20UbuntuBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:maxLines="2"
@@ -47,43 +69,43 @@
 
                 <TextView
                     android:id="@+id/dateTextView"
+                    style="@style/gray12UbuntuMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    style="@style/gray12UbuntuMedium"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="21dp"
                     android:maxLines="1"
+                    android:text="@string/loading_with_dots"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/headerTextView"
-                    android:text="@string/loading_with_dots" />
+                    app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
 
                 <TextView
                     android:id="@+id/categoryTextView"
+                    style="@style/green12UbuntuMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    style="@style/green12UbuntuMedium"
                     android:layout_marginStart="11dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:maxLines="1"
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView"
+                    android:text="@string/loading_with_dots"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/headerTextView"
-                    android:text="@string/loading_with_dots" />
+                    app:layout_constraintStart_toEndOf="@+id/dateTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/headerTextView" />
 
                 <ImageView
                     android:id="@+id/imageViewContainer"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="6dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@android:color/transparent"
-                    app:layout_constraintTop_toBottomOf="@+id/dateTextView"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
                 <TextView
                     android:id="@+id/contentTextView"
@@ -91,13 +113,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="25dp"
                     android:text="@string/loading_with_dots"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageViewContainer"
                     tools:layout_editor_absoluteY="251dp" />
 
@@ -199,12 +221,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <ProgressBar
-        android:id="@+id/progress_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--    <ProgressBar-->
+<!--        android:id="@+id/progress_view"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,17 +2,20 @@ package com.pyroblinchik.newsfinder.presentation.newsCard
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.bumptech.glide.Glide
 import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.SKApplication
 import com.pyroblinchik.newsfinder.databinding.ActivityNewsCardBinding
@@ -26,13 +29,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
-    private val viewModel: NewsCardActivityViewModel by viewModels()
-
     private lateinit var binding: ActivityNewsCardBinding
 
-    private val progressView: ProgressBar by lazy {
-        binding.progressView
-    }
+//    private val progressView: ProgressBar by lazy {
+//        binding.progressView
+//    }
 
     private val toolbar by lazy {
         binding.includeToolbar
@@ -54,47 +55,75 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         setSupportActionBar(toolbar.mainToolbar)
         supportActionBar!!.title = ""
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        binding.includeToolbar.mainToolbar.setLogo(R.drawable.ic_logo_horizontal)
+        setToolbarTitle()
+//        binding.includeToolbar.mainToolbar.setLogo(R.drawable.ic_logo_horizontal)
     }
 
-//    private fun setToolbarTitle() {
-//        binding.includeToolbar.titleToolbar.text =
-//            "${getString(R.string.)} ${inspection.?.name ?: ""}"
-//    }
+    private fun setToolbarTitle() {
+        binding.includeToolbar.titleToolbar.text =
+            "${news.title}"
+    }
 
     private fun initUI() {
         setToolbar()
 
+        setTitle()
+        setDate()
+        setCategory()
 
-        addObservers()
+        setImage()
+
+        setContent()
+
+        setSource()
+        setAuthor()
+
+        setFavouritesBookmark()
+
         addClickListeners()
     }
 
-    fun addObservers() {
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect { state ->
-                    when (state) {
-                        is NewsCardUIState.Error -> {
-                            Timber.e("error")
-//                            checkStateForTimeout(state.message)
-                            hideLoading()
-                        }
-                        is NewsCardUIState.Loading -> {
-                            Timber.e("loading")
-                            showLoading()
-                        }
-                        is NewsCardUIState.Finish -> {
-                            finish()
-                        }
-                        else -> {
-                            hideLoading()
-                        }
-                    }
-                }
-            }
+    private fun setFavouritesBookmark() {
+        if (news.isFavorite){
+            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_dark_green)
+        } else{
+            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_empty)
         }
+    }
+
+    private fun setAuthor() {
+        binding.authorTextView.text = news.author
+    }
+
+    private fun setSource() {
+        // TODO "M"  add source image
+        binding.sourceTextView.text = news.source
+    }
+
+    private fun setContent() {
+        binding.contentTextView.text = news.description
+    }
+
+    private fun setImage() {
+        try {
+            Glide.with(this)
+                .load(Uri.parse(news.image))
+                .into(binding.imageViewContainer)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setCategory() {
+        binding.categoryTextView.text = news.category
+    }
+
+    private fun setDate() {
+        binding.dateTextView.text = news.published_at.toString()
+    }
+
+    private fun setTitle(){
+        binding.headerTextView.text = news.title
     }
 
     private fun addClickListeners() {
@@ -136,16 +165,15 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     }
 
     override fun showLoading() {
-        progressView.visible()
+//        progressView.visible()
     }
 
     override fun hideLoading() {
-        progressView.gone()
+//        progressView.gone()
     }
 
     companion object {
         private const val MODE_UNKNOWN = 0
-        val MODE_NEWS_GET = 1
 
         var news = News()
         var requestCode = MODE_UNKNOWN
@@ -156,7 +184,6 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
             news: News,
             result: ActivityResultLauncher<Intent>,
         ) {
-            this.requestCode = MODE_NEWS_GET
             this.news = news
             result.launch(
                 // ActivityResultLauncher<Type>

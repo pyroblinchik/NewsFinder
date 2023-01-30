@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/include_toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar_menu" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"

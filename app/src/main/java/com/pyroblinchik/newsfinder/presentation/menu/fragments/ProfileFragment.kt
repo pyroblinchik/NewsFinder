@@ -16,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
-    // TODO "I" code ProfileFragment (settings)
-
     private val emptyResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
 
@@ -41,7 +39,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     }
 
     fun addObservers() {
-
     }
 
     private fun setupClickListeners() {

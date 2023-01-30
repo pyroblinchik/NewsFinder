@@ -6,6 +6,7 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.pyroblinchik.newsfinder.R
@@ -48,8 +49,14 @@ class NewsAdapter(
 //                    DateStringFormatter().parseStringToDateWithMonthConventional(published_at).toString()
 
                 categoryTextView.text = category
+
+                root.setOnClickListener{ onItemClickListener.invoke(item) }
             }
         }
+    }
+
+    override fun getItemCount(): Int {
+        return currentList.size
     }
 
     private fun setPhoto(context: Context, imageView: ImageView, uri: Uri) {
@@ -58,6 +65,7 @@ class NewsAdapter(
                 .load(uri)
                 .into(imageView)
         } catch (e: Exception) {
+            Toast.makeText(context, "Failed to load image", Toast.LENGTH_SHORT).show()
         }
 
     }

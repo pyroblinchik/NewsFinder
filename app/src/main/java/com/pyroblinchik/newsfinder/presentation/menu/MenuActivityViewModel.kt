@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pyroblinchik.newsfinder.domain.base.model.FilterNews
 import com.pyroblinchik.newsfinder.domain.base.model.News
+import com.pyroblinchik.newsfinder.domain.menu.AddNewsToHistoryDatabaseUseCase
 import com.pyroblinchik.newsfinder.domain.menu.GetNewsFeedFromNetworkUseCase
 import com.pyroblinchik.newsfinder.domain.menu.GetNewsHistoryFromDatabaseUseCase
 import com.pyroblinchik.newsfinder.util.ExceptionParser
@@ -17,20 +18,21 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
-// TODO |CONSIDER| rename "menu" to "panel" to distinguish better
 
 @HiltViewModel
 class MenuActivityViewModel @Inject constructor(
     private val getNewsUseCase: GetNewsFeedFromNetworkUseCase,
     private val getNewsHistoryFromDatabaseUseCase: GetNewsHistoryFromDatabaseUseCase,
+    private val addNewsToHistoryDatabaseUseCase: AddNewsToHistoryDatabaseUseCase
 ) : ViewModel() {
 
-    private val _news = MutableLiveData<ArrayList<News>>(ArrayList())
+    private val _news = MutableLiveData<ArrayList<News>>()
     val news: LiveData<ArrayList<News>>
         get() = _news
 
-    private val _newsHistory = MutableLiveData<ArrayList<News>>(ArrayList())
+    private val _newsHistory = MutableLiveData<ArrayList<News>>()
     val newsHistory: LiveData<ArrayList<News>>
         get() = _newsHistory
 
@@ -79,10 +81,9 @@ class MenuActivityViewModel @Inject constructor(
 
             } catch (error: Exception) {
                 error.printStackTrace()
-                Timber.d(ExceptionParser.getMessage(error).toString())
+                Timber.d(ExceptionParser.getMessage(error))
                 _uiState.value = MenuUIState.Error(ExceptionParser.getMessage(error))
             }
-            getNewsHistoryFromDatabaseUseCase.getNewsHistory()
         }
     }
 
@@ -95,14 +96,21 @@ class MenuActivityViewModel @Inject constructor(
                     _newsHistory.postValue(ArrayList())
                     MenuUIState.HistoryNewsIsEmpty
                 } else {
+                    _newsHistory.postValue(ArrayList(news))
                     MenuUIState.Loaded
                 }
 
             } catch (error: Exception) {
                 error.printStackTrace()
-                Timber.d(ExceptionParser.getMessage(error).toString())
+                Timber.d(ExceptionParser.getMessage(error))
                 _uiState.value = MenuUIState.Error(ExceptionParser.getMessage(error))
             }
+        }
+    }
+
+    fun addToHistory(news: News) {
+        viewModelScope.launch(Dispatchers.IO) {
+            addNewsToHistoryDatabaseUseCase.invoke(news)
         }
     }
 

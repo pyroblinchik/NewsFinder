@@ -9,5 +9,4 @@ class GetNewsHistoryFromDatabaseUseCase @Inject constructor(
 
     suspend operator fun invoke() = repository.getNewsHistoryFromDatabase()
 
-    suspend fun getNewsHistory() = repository.getNewsHistoryFromDatabase()
 }

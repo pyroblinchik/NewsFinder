@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
 import androidx.lifecycle.Lifecycle
@@ -14,13 +15,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.databinding.ActivityFavouritesBinding
-import com.pyroblinchik.newsfinder.databinding.ToolbarBinding
+import com.pyroblinchik.newsfinder.domain.base.model.News
 import com.pyroblinchik.newsfinder.presentation.favourites.views.FavouritesAdapter
 import com.pyroblinchik.newsfinder.util.view.IProgressView
 import com.pyroblinchik.newsfinder.util.view.ISetToolbar
 import com.pyroblinchik.newsfinder.util.view.gone
 import com.pyroblinchik.newsfinder.util.view.visible
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -30,9 +32,11 @@ class FavouritesActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     private lateinit var binding: ActivityFavouritesBinding
 
+    private lateinit var  favouritesAdapter: FavouritesAdapter
+
     private val favouritesViewModel: FavouritesViewModel by viewModels()
 
-    private val toolbar: ToolbarBinding by lazy {
+    private val toolbar by lazy {
         binding.includeToolbar
     }
 
@@ -58,37 +62,48 @@ class FavouritesActivity : AppCompatActivity(), ISetToolbar, IProgressView {
         setFavourites()
 
         // handle state behaviour
-        addStateBehaviour()
+        addObserver()
     }
 
-    private fun addStateBehaviour() {
+    private fun addObserver() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                favouritesViewModel.state.collectLatest { state: FavouritesUIState ->
-                    when(state) {
-                        is FavouritesUIState.Loading -> {
-                            Timber.d("loading")
-                            showLoading()
-                        }
-                        is FavouritesUIState.Loaded -> {
-                            Timber.d("loaded")
-                            hideLoading()
-                        }
-                        is FavouritesUIState.Finish -> {
-                            Timber.d("finished")
-                            hideLoading()
-                            finish()
-                        }
-                        is FavouritesUIState.Error -> {
-                            Timber.d("error")
-                            hideLoading()
-                        }
-                        else -> {
-                            hideLoading()
+
+            val submitList = async {
+                favouritesViewModel.favourites.collectLatest {
+                    favouritesAdapter.submitList(it)
+                }
+            }
+
+            val addStateBehaviour = async {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    favouritesViewModel.state.collectLatest { state: FavouritesUIState ->
+                        when(state) {
+                            is FavouritesUIState.Loading -> {
+                                Timber.d("loading")
+                                showLoading()
+                            }
+                            is FavouritesUIState.Loaded -> {
+                                Timber.d("loaded")
+                                hideLoading()
+                            }
+                            is FavouritesUIState.Finish -> {
+                                Timber.d("finished")
+                                hideLoading()
+                                finish()
+                            }
+                            is FavouritesUIState.Error -> {
+                                Timber.d("error")
+                                hideLoading()
+                            }
+                            else -> {
+                                hideLoading()
+                            }
                         }
                     }
                 }
             }
+            submitList.await()
+            addStateBehaviour.await()
         }
     }
 
@@ -109,15 +124,14 @@ class FavouritesActivity : AppCompatActivity(), ISetToolbar, IProgressView {
     }
 
     private fun setFavourites() {
-        lifecycleScope.launch {
-            favouritesViewModel.favourites.collectLatest { favourites ->
-                val adapter = FavouritesAdapter(favourites)
-                binding.favouritesListView.let {
-                    it.adapter = adapter
-                    it.layoutManager = LinearLayoutManager(this@FavouritesActivity)
-                    it.visible()
-                }
-            }
+        val onFavouritesClickListener: ((News) -> Unit) = {
+            Toast.makeText(this, it.title, Toast.LENGTH_LONG).show()
+        }
+        favouritesAdapter = FavouritesAdapter(onFavouritesClickListener)
+        binding.favouritesListView.apply {
+            this.adapter = adapter
+            this.layoutManager = LinearLayoutManager(this@FavouritesActivity)
+            this.visible()
         }
     }
 
