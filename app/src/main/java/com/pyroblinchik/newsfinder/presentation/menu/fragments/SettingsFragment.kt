@@ -2,11 +2,10 @@ package com.pyroblinchik.newsfinder.presentation.menu.fragments
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
-import com.pyroblinchik.newsfinder.databinding.FragmentProfileBinding
+import com.pyroblinchik.newsfinder.databinding.FragmentSettingsBinding
 import com.pyroblinchik.newsfinder.presentation.base.BaseFragment
 import com.pyroblinchik.newsfinder.presentation.favourites.FavouritesActivity
 import com.pyroblinchik.newsfinder.presentation.languages.LanguageActivity
@@ -14,7 +13,7 @@ import com.pyroblinchik.newsfinder.presentation.menu.MenuActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
 
     private val emptyResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -23,7 +22,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     private val viewModel by activityViewModels<MenuActivityViewModel>()
     override fun constructViewBinding(): ViewBinding =
-        FragmentProfileBinding.inflate(layoutInflater)
+        FragmentSettingsBinding.inflate(layoutInflater)
 
 
     override fun init(viewBinding: ViewBinding, savedInstanceState: Bundle?) {

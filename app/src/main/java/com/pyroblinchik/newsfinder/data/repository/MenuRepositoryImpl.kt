@@ -157,7 +157,6 @@ class MenuRepositoryImpl @Inject constructor(
     }
 
     override suspend fun addNewsToHistoryDatabase(news: News) {
-        // TODO |I| add news to history database
         news.isInHistory = true
         dao.insertNews(mapper.mapEntityToDBModel(news))
     }

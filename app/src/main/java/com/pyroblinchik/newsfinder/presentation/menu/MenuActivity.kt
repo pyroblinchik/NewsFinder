@@ -136,9 +136,9 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
                 supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 //                binding.includeToolbar.titleToolbar.text = getString(R.string.title_history)
             }
-            nameOfBlock.contains("profile") -> {
+            nameOfBlock.contains("settings") -> {
                 supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-//                binding.includeToolbar.titleToolbar.text = getString(R.string.title_profile)
+//                binding.includeToolbar.titleToolbar.text = getString(R.string.title_settings)
             }
             else -> {
                 supportActionBar!!.setDisplayHomeAsUpEnabled(false)

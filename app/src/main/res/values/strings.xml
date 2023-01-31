@@ -3,7 +3,7 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_feed">feed</string>
     <string name="title_history">history</string>
-    <string name="title_profile">profile</string>
+    <string name="title_settings">settings</string>
     <string name="main_toolbar">Toolbar</string>
     <string name="filter">Filter</string>
     <string name="search">Search</string>
