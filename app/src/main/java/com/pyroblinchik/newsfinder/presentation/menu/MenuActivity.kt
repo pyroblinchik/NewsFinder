@@ -3,6 +3,7 @@ package com.pyroblinchik.newsfinder.presentation.menu
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -80,7 +81,7 @@ class MenuActivity : AppCompatActivity(), ISetToolbar, IProgressView {
             changeToolbar(destination.displayName)
             viewModel.updateSearchState(false)
         }
-
+        Log.d("MenuActivity", resources.getStringArray(R.array.languagesarr).toString())
         addObservers()
         addClickListeners()
     }

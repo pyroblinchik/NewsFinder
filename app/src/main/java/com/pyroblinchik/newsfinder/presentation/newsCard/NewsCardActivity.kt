@@ -15,6 +15,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.airbnb.paris.extensions.style
 import com.bumptech.glide.Glide
 import com.pyroblinchik.newsfinder.R
 import com.pyroblinchik.newsfinder.SKApplication
@@ -36,7 +37,7 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 //    }
 
     private val toolbar by lazy {
-        binding.includeToolbar
+        binding.toolbar
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,79 +53,82 @@ class NewsCardActivity : AppCompatActivity(), ISetToolbar, IProgressView {
 
     override fun setToolbar() {
         // TODO "M" Add toolbar
-        setSupportActionBar(toolbar.mainToolbar)
-        supportActionBar!!.title = ""
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+//        setSupportActionBar(findViewById(R.id.toolbar_layout))
+       binding.toolbarLayout.setTitle(getTitle());
+       binding.toolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+       binding.toolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+        binding.toolbarLayout.title = news.title
+//        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         setToolbarTitle()
 //        binding.includeToolbar.mainToolbar.setLogo(R.drawable.ic_logo_horizontal)
     }
 
     private fun setToolbarTitle() {
-        binding.includeToolbar.titleToolbar.text =
-            "${news.title}"
+//        binding.includeToolbar.titleToolbar.text =
+//            "${news.title}"
     }
 
     private fun initUI() {
         setToolbar()
 
-        setTitle()
-        setDate()
-        setCategory()
-
-        setImage()
+//        setTitle()
+//        setDate()
+//        setCategory()
+//
+//        setImage()
 
         setContent()
 
-        setSource()
-        setAuthor()
-
-        setFavouritesBookmark()
+//        setSource()
+//        setAuthor()
+//
+//        setFavouritesBookmark()
 
         addClickListeners()
     }
 
-    private fun setFavouritesBookmark() {
-        if (news.isFavorite){
-            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_dark_green)
-        } else{
-            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_empty)
-        }
-    }
-
-    private fun setAuthor() {
-        binding.authorTextView.text = news.author
-    }
-
-    private fun setSource() {
-        // TODO "M"  add source image
-        binding.sourceTextView.text = news.source
-    }
+//    private fun setFavouritesBookmark() {
+//        if (news.isFavorite){
+//            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_dark_green)
+//        } else{
+//            binding.addToBookmarkImageView.setImageResource(R.drawable.ic_bookmark_empty)
+//        }
+//    }
+//
+//    private fun setAuthor() {
+//        binding.authorNameTextView.text = news.author
+//    }
+//
+//    private fun setSource() {
+//        // TODO "M"  add source image
+//        binding.sourceNameTextView.text = news.source
+//    }
 
     private fun setContent() {
         binding.contentTextView.text = news.description
     }
 
-    private fun setImage() {
-        try {
-            Glide.with(this)
-                .load(Uri.parse(news.image))
-                .into(binding.imageViewContainer)
-        } catch (e: Exception) {
-            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun setCategory() {
-        binding.categoryTextView.text = news.category
-    }
-
-    private fun setDate() {
-        binding.dateTextView.text = news.published_at.toString()
-    }
-
-    private fun setTitle(){
-        binding.headerTextView.text = news.title
-    }
+//    private fun setImage() {
+//        try {
+//            Glide.with(this)
+//                .load(Uri.parse(news.image))
+//                .into(binding.imageViewContainer)
+//        } catch (e: Exception) {
+//            Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show()
+//        }
+//    }
+//
+//    private fun setCategory() {
+//        binding.categoryTextView.text = news.category
+//    }
+//
+//    private fun setDate() {
+//        binding.dateTextView.text = news.published_at.toString()
+//    }
+//
+//    private fun setTitle(){
+//        binding.headerTextView.text = news.title
+//    }
 
     private fun addClickListeners() {
 

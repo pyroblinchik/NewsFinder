@@ -15,6 +15,35 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/green_black</item>
+        <item name="android:maxLines">2</item>
+        <item name="fontFamily">@font/ubuntu_bold</item>
+    </style>
+
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/green_black</item>
+        <item name="android:maxLines">2</item>
+        <item name="fontFamily">@font/ubuntu_bold</item>
+    </style>
+
+    <style name="ExpandedAppBarPlus1" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20.5sp</item>
+        <item name="android:textColor">@color/green_black</item>
+        <item name="android:maxLines">2</item>
+        <item name="fontFamily">@font/ubuntu_bold</item>
+    </style>
+
+    <style name="CollapsedAppBarPlus1" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">16.5sp</item>
+        <item name="android:textColor">@color/green_black</item>
+        <item name="android:maxLines">2</item>
+        <item name="fontFamily">@font/ubuntu_bold</item>
+    </style>
+
     <style name="darkGreen24UbuntuBold">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/green_black</item>

@@ -35,11 +35,11 @@ class LanguagesRepositoryImpl @Inject constructor(
     )
 
     override suspend fun getLanguagesFromDatabase(): List<Language> {
-        val listDB = dao.getLanguages()
-        val list = ArrayList<Language>()
-        listDB?.forEach {
-            list.add(mapper.mapDbModelToEntity(it))
-        }
+//        val listDB = dao.getLanguages()
+//        val list = ArrayList<Language>()
+//        listDB?.forEach {
+//            list.add(mapper.mapDbModelToEntity(it))
+//        }
         // return list
         return languages
     }

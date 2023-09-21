@@ -53,6 +53,8 @@ class MenuActivityViewModel @Inject constructor(
     init {
         getNews()
         getHistoryNews()
+
+
     }
 
     fun updateNewsList() {
